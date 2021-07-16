@@ -77,6 +77,9 @@ class Element(object):
             return self.children
 
     def __getitem__(self, key):
+        # If the current element is NOT a list, keep list-like behaviour
+        if key == 0:
+            return self
         return self.get_attribute(key)
 
     def __getattr__(self, key):
