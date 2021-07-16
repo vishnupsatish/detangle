@@ -92,7 +92,8 @@ class Element(object):
                 self.__dict__[key] = matching_children
                 return matching_children
         else:
-            raise AttributeError("'%s' has no attribute '%s'" % (self._name, key))
+            return None
+            # raise AttributeError("'%s' has no attribute '%s'" % (self._name, key))
 
     def __hasattribute__(self, name):
         if name in self.__dict__:
@@ -103,6 +104,9 @@ class Element(object):
         yield self
 
     def __str__(self):
+        return self.cdata
+
+    def string_representation(self):
         return "Element <%s> with attributes %s, children %s and cdata %s" % (
             self._name,
             self._attributes,
@@ -111,11 +115,7 @@ class Element(object):
         )
 
     def __repr__(self):
-        return "Element(name = %s, attributes = %s, cdata = %s)" % (
-            self._name,
-            self._attributes,
-            self.cdata,
-        )
+        return self.cdata
 
     def __nonzero__(self):
         return self.is_root or self._name is not None
@@ -145,10 +145,6 @@ class Handler(handler.ContentHandler):
         self.elements = []
 
     def startElement(self, name, attributes):
-        name = name.replace("-", "_")
-        name = name.replace(".", "_")
-        name = name.replace(":", "_")
-
         # adding trailing _ for keywords
         if keyword.iskeyword(name):
             name += "_"
