@@ -145,6 +145,10 @@ class Handler(handler.ContentHandler):
         self.elements = []
 
     def startElement(self, name, attributes):
+        name = name.replace("-", "_")
+        name = name.replace(".", "_")
+        name = name.replace(":", "_") 
+     
         # adding trailing _ for keywords
         if keyword.iskeyword(name):
             name += "_"
