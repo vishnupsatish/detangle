@@ -60,7 +60,7 @@ class Element(object):
         Store cdata
         """
         self.cdata = self.cdata + cdata
-        self.cdata = self.cdata.strip()
+        self.cdata = ' '.join(self.cdata.strip().split())
 
     def get_attribute(self, key):
         """
