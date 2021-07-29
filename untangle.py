@@ -14,6 +14,7 @@
  License: MIT License - http://www.opensource.org/licenses/mit-license.php
 """
 import os
+import re
 import keyword
 from xml.sax import make_parser, handler
 
@@ -60,7 +61,7 @@ class Element(object):
         Store cdata
         """
         self.cdata = self.cdata + cdata
-        self.cdata = ' '.join(self.cdata.strip().split())
+        self.cdata = re.sub(' +', ' ', self.cdata.strip())
 
     def get_attribute(self, key):
         """
